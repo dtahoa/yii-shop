@@ -1,0 +1,13 @@
+RewriteEngine on
+
+# if a directory or a file exists, use it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# otherwise forward it to index.php
+RewriteRule . index.php
+
+# remove www from host
+RewriteCond %{HTTP_HOST} ^www\.(.+)
+RewriteCond %{HTTPS}s/%1 ^(on(s)|offs)/(.+)
+RewriteRule ^ http%2://%3%{REQUEST_URI} [L,R=301]
